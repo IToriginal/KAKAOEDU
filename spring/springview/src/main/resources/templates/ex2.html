@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>데이터 목록 출력</title>
+</head>
+<body>
+<ul>
+  <li th:each = "sampleVO, state:${list}">
+    <th:block th:switch="${sampleVO.sno % 5 == 0}">
+      <span th:case=true th:text="${sampleVO.sno}"></span>
+      <span th:case=false th:text="${sampleVO.last}"></span>
+    </th:block>
+  </li>
+</ul>
+</body>
+</html>
