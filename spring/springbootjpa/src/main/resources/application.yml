@@ -1,0 +1,32 @@
+server:
+  port: 80
+
+#데이터베이스 접속 정보
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:3306/springDB
+    username: root
+    password: qlxkals
+
+  #Entity를 가지고 테이블을 만들것인 지 여부를 설정
+  #create : 시작될 때 무조건 새로 생성
+  #create-drop : 시작할 때 생성하고 종료할 때 삭제
+  #update : 변경되면 적용
+  #validate : 매핑만 확인
+  #none : 생성하지 않음
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+    #show_sql은 sql 구문을 출력하는 것이고 format_sql은 포맷을 설정해서 출력
+    properties:
+      hibernate:
+        format-sql: true
+        show_sql: true
+
+#?에 값을 바인딩할 때 그 값을 확인
+logging:
+  level:
+    org.hibernate.type.descriptor.sql: trace
+
