@@ -52,15 +52,32 @@ public class PageController {
         List<SampleVO> list = IntStream.range(1, 20)
                 .asLongStream()
                 .mapToObj(i->{
-            SampleVO sampleVO = SampleVO.builder()
+            SampleVO vo = SampleVO.builder()
                     .sno(i)
                     .first("First.." + i)
                     .last("Last.." + i)
                     .regTime(LocalDateTime.now())
                     .build();
 
-                    return sampleVO;
+                    return vo;
         }).collect(Collectors.toList());
         model.addAttribute("list", list);
     }
+
+    @GetMapping({"/exlink", "/exformat"})
+    public void exlink(Model model){
+        List <SampleVO> list = new ArrayList<>();
+        for (long i=0; i<10; i++){
+            SampleVO vo = SampleVO.builder()
+                    .sno(i)
+                    .first("First.." + i)
+                    .last("Last.." + i)
+                    .regTime(LocalDateTime.now())
+                    .build();
+            list.add(vo);
+        }
+        model.addAttribute("list", list);
+    }
+    @GetMapping("/exlayout1")
+    public void exlayout(){}
 }
