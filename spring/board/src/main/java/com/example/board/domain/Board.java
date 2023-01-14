@@ -17,7 +17,7 @@ public class Board extends BaseEntity{
     private String title;
     private String content;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY) //FK 설정
     //처음에는 가져오지 않고 사용을 할 때 가져옴
     private Member writer;
 

@@ -126,4 +126,30 @@ public class RepositoryTest {
             System.out.println(c);
         });
     }
+
+    @Test
+    public void testSearch1(){
+        boardRepository.search1();
+    }
+
+    //검색 테스트
+    @Test
+    public void testSearchPage() {
+        Pageable pageable = PageRequest.of(0,10,
+                Sort.by("bno").descending()
+                        .and(Sort.by("title").ascending()));
+        //title 또는 content에 " "이 포함된 데이터 조회
+        Page<Object[]> result = boardRepository.searchPage("tc", "점심", pageable);
+        for(Object [] row : result.getContent()){
+            System.out.println(Arrays.toString(row));
+        }
+    }
+
+    @Test
+    //댓글을 가져오는 메서드 확인
+    public void testListReply(){
+        List<Reply> replyList = replyRepository.findByBoardOrderByRno(
+                Board.builder().bno(99L).build());
+        replyList.forEach(reply -> System.out.println(reply));
+    }
 }

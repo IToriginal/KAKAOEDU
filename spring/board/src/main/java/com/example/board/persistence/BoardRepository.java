@@ -9,7 +9,8 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface BoardRepository extends JpaRepository<Board,Long> {
+public interface BoardRepository extends JpaRepository<Board,Long>,
+SearchBoardRepository{
     //Board 데이터를 가져올 때 Writer의 데이터도 가져오기
     @Query("select b,w from Board b left join b.writer w where b.bno=:bno")
     public Object getBoradWithWriter(@Param("bno") Long bno);
