@@ -1,12 +1,16 @@
 package com.example.board.service;
 
+import com.example.board.domain.Reply;
 import com.example.board.dto.BoardDTO;
 import com.example.board.dto.PageRequestDTO;
 import com.example.board.dto.PageResponseDTO;
+import com.example.board.dto.ReplyDTO;
 import com.example.board.service.BoardService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 @SpringBootTest
 public class ServiceTest {
@@ -52,5 +56,26 @@ public class ServiceTest {
                 .content("내용 변경")
                 .build();
         System.out.println(boardService.modify(dto));
+    }
+
+    @Autowired
+    ReplyService replyService;
+
+    @Test
+    public void testGetList(){
+        //게시글 번호를 이용해서 댓글 가져오기
+        //DB에 저장된 샘플데이터 확인 (reply -> board_bno : 76 사용)
+        List<ReplyDTO> list = replyService.getList(76L);
+        list.forEach(dto -> System.out.println(dto));
+    }
+
+    @Test
+    public void insertReply(){
+        ReplyDTO dto = ReplyDTO.builder()
+                .text("댓글 삽입 테스트")
+                .replyer("user1@kakao.com")
+                .bno(76L)
+                .build();
+        System.out.println(replyService.register(dto));
     }
 }
