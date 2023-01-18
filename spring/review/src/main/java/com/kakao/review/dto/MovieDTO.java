@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,10 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class MovieDTO {
+    private double avg; //영화의 평균 평점
+    private Long reviewCnt; //리뷰 수 jpa의 count()
+    private LocalDateTime regDate;
+    private LocalDateTime modDate;
     private Long mno;
     private String title;
 

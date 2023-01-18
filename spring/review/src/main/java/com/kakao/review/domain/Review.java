@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @ToString(exclude = {"movie", "member"})
-public class Review {
+public class Review extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reviewnum;
@@ -19,4 +19,12 @@ public class Review {
     private Member member;
     private int grade;
     private String text;
+
+    public void changeGrade(int grade){
+        this.grade = grade;
+    }
+
+    public void changeText(String text){
+        this.text = text;
+    }
 }

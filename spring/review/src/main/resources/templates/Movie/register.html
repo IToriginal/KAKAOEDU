@@ -17,7 +17,51 @@
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+    <div class = "uploadResult"><ul></ul></div>
+    <style>
+      .uploadResult {
+        width: 100%;
+        background-color: gray;
+        margin-top: 10px;
+      }
+      .uploadResult ul {
+        display: flex;
+        flex-flow: row;
+        justify-content: center;
+        align-items: center;
+        vertical-align: top;
+      }
+      .uploadResult ul li {
+        list-style: none;
+        padding: 10px;
+        margin-left: 2em;
+      }
+      .uploadResult ul li img {
+        width: 100px;
+      }
+    </style>
     <script>
+      //이미지 업로드 결과를 받아서 출력해주는 함수
+      let showResult = (uploadResultArr) => {
+        // 출력할 영역
+        let uploadUL = $(".uploadResult ul");
+        //출력할 내용
+        let str ="";
+        //배열 반복
+        $(uploadResultArr).each((i, obj) => {
+          str += "<li data-name=\'" + obj.fileName +
+                  "' data-path='" + obj. uploadPath +
+                  "' data-uuid='" + obj.uuid + "'>";
+          str + " <div>";
+          str += "<button type='button' data-file=\'" + obj.imageURL + "\' "
+          str += "class='btn-warning btn-sm'>X</button><br>";
+          str += "<img src='/display?filename=" + obj.thumbnailURL + "'>";
+          str += "</div>";
+          str + "</li>";
+        });
+        uploadUL.append(str);
+      }
+
       $(document).ready(function (e) {
         //제외할 확장자를 위한 정규식
         let regex = new RegExp("(.*?)\.(exe|sh|zip|alz|tiff)$");
@@ -73,11 +117,54 @@
             dataType: 'json',
             success: function (result){
               console.log(result);
+              showResult(result)
             },
             error:function (jqXHR, textstatus, errorThrown){
               console.log(textstatus);
             }
-          })
+          }); //$.ajax
+        }); //end chage event
+
+        //이미지 위의 삭제 버튼을 눌렀을 때 처리
+        $(".uploadResult ").on("click", "li button", function(e){
+          //data-file의 값을 가져오기
+          let targetFile = $(this).data("file");
+          //자신을 포함하고 있는 li
+          let targetLi = $(this).closest("li");
+          $.ajax({
+            url: '/removefile',
+            data: {fileName: targetFile},
+            dataType:'text',
+            type: 'POST',
+            success: function(result){
+              console.log("삭제 상태: " + result);
+              alert("삭제를 완료 했습니다");
+              targetLi.remove();
+            }
+          }); //$.ajax
+        });
+
+        //등록 버튼을 누를 때 이벤트 처리
+        $(".btn-primary").on("click", (e) => {
+          //기본 기능 제거
+          e.preventDefault(); // 유효성 검사에 쓰임
+          let str = "";
+          if($(".uploadResult li").length > 3){
+            alert("3개의 이미지만 등록 가능합니다.");
+            return;
+          }
+
+          $(".uploadResult li").each((i,obj) => {
+            let target = $(obj);
+            let imsi = 'imageDTOList[' + i + '].imgName';
+            str += "<input type='hidden' " + "name=\'" + imsi + "\' " +  "value=\'" + target.data('name') +"\'>";
+            imsi = 'imageDTOList[' + i + '].path';
+            str += "<input type='hidden' " + "name=\'" + imsi + "\' " +  "value=\'" + target.data('path') +"\'>";
+            imsi = 'imageDTOList[' + i + '].uuid';
+            str += "<input type='hidden' " + "name=\'" + imsi + "\' " +  "value=\'" + target.data('uuid') +"\'>";
+          });
+          //태그들이 추가된 것을 확인한 후에 comment를 제거
+          $("form").append(str).submit();
         });
       })
     </script>
