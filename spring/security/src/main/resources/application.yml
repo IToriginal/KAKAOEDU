@@ -1,9 +1,28 @@
-#?? ?? ??
 server:
   port: 80
 
-#?????? ?? ??
 spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: -
+            client-secret: -
+            redirect-uri: http://localhost/login/oauth2/code/kakao
+            authorization-grant-type: authorization_code
+            client-authentication-method: POST
+            client-name: Kakao
+            scope:
+              - profile_nickname
+              - account_email
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id
+
   servlet:
     multipart:
       enabled: true
@@ -11,23 +30,22 @@ spring:
       max-file-size: 10MB
       max-request-size: 30MB
   datasource:
-    url: jdbc:mariadb://localhost:3306/security
+    url: jdbc:mariadb://localhost:3306/securityDB
     driver-class-name: org.mariadb.jdbc.Driver
     username: root
     password: qlxkals
-  #??? ?? ?? ? ??
+
   jpa:
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
-        format_sql: true #hibernate query format? ??
-        show_sql: true #hibernate query? ??? ??
+        format_sql: true
+        show_sql: true
 
   thymeleaf:
-    cache: false #?? ???? ??? ??
+    cache: false
 
-#sql? ??? ? ? ? ??? ?? ??
 logging:
   level:
     org.hibernate.type.descriptor.sql: trace

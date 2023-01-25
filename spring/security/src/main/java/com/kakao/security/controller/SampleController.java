@@ -1,7 +1,11 @@
 package com.kakao.security.controller;
 
+import com.kakao.security.security.dto.ClubMemberSecurityDTO;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -27,7 +31,11 @@ public class SampleController {
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/sample/member")
-    public void member(){
-        log.info("Member만 허용");
+    public void member(@AuthenticationPrincipal
+                           ClubMemberSecurityDTO clubMemberSecurityDTO){
+        log.info("멤버만 허용");
+        //로그인한 유저 정보 확인
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        log.info("로그인한 유저: ", clubMemberSecurityDTO);
     }
 }
