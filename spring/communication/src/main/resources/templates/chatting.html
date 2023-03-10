@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Communications</title>
+</head>
+<body>
+<div id='chat'>
+    <h1>WebSocket Chatting</h1>
+    <input type='text' id='mid' value='noname'>
+    <input type='button' value='로그인' id='btnLogin'>
+    <br/>
+    <!-- 데이터 출력 영역 -->
+    <div id='talk'></div>
+    <!-- 전송할 메시지 영역 -->
+    <div id='sendZone'>
+        <textarea id='msg' value='hi...' ></textarea>
+        <input type='button' value='전송' id='btnSend'>
+    </div>
+</div>
+</body>
+<link rel="stylesheet" type="text/css" href="/css/chat.css" />
+<script src="/js/chat.js"></script>
+</html>
