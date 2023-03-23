@@ -1,0 +1,22 @@
+<!-- ajax로 데이터 요청 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sample Client</title>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+    async function callTest(){
+      const response = await axios.get("http://localhost/api/sample/test");
+      return response.data;
+    }
+
+    callTest()
+            .then(data => console.log(data))
+            .catch(e => console.log(e));
+  </script>
+</head>
+<body>
+
+</body>
+</html>
