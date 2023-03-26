@@ -30,8 +30,17 @@ public class JWTUtilTest {
     @Test
     @DisplayName("유효 토큰 확인")
     public void testValidate() {
-        String jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2Nzk1OTM0MTEsImlhdCI6MTY3OTU4NzQxMSwibWVtYmVySWQiOiJBQkNERSJ9.RdgG5ok_GTqd-75JP81Hvqp_w6GihD7nFqDH9KIwDqg";
+        String jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2Nzk4MjMwMDIsImlhdCI6MTY3OTgxNzAwMiwibWVtYmVySWQiOiJTYW1wbGVfTWVtYmVyMTAifQ.Oi94GqdhGfTx8MljZKw5XcSgOhSsntcwRTghh4N-ON4";
         Map<String, Object> claim = jwtUtil.validateToken(jwt);
         System.out.println(claim);
+    }
+
+    @Test
+    public void testAll() {
+        String jwtStr = jwtUtil.generateToken(Map.of("memberId", "Sample_Member10", "email", "sample10@sample.com"), 1);
+        System.out.println(jwtStr);
+        Map<String, Object> claim = jwtUtil.validateToken(jwtStr);
+        System.out.println("MEMBERID: " + claim.get("memberId"));
+        System.out.println("EMAIL: " + claim.get("email"));
     }
 }

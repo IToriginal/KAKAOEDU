@@ -1,4 +1,4 @@
-package com.auth.springsecurityjwt.filter;
+package com.auth.springsecurityjwt.security.filter;
 
 import java.io.IOException;
 import java.io.InputStreamReader;

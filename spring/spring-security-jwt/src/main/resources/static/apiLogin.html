@@ -12,7 +12,13 @@
   document.getElementById("btn1").addEventListener('click', (e) => {
     //전송할 데이터
     const data = {memberId:"Sample_Member10", memberPassword:"1111"};
-    axios.post("http://localhost/generateToken", data)
+      axios.post("http://localhost/generateToken", data)
+          .then(res => {
+              const accessToken = res.data.accessToken
+              const refreshToken = res.data.refreshToken
+              localStorage.setItem("accessToken", accessToken)
+              localStorage.setItem("refreshToken", refreshToken)
+          })
   })
 </script>
 </html>

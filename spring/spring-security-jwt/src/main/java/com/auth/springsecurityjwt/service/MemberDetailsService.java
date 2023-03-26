@@ -1,4 +1,4 @@
-package com.auth.springsecurityjwt.security;
+package com.auth.springsecurityjwt.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.auth.springsecurityjwt.domain.Member;
-import com.auth.springsecurityjwt.dto.MemberDTO;
+import com.auth.springsecurityjwt.service.dto.MemberDTO;
 import com.auth.springsecurityjwt.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
